@@ -11,8 +11,8 @@ class screen {
 		this.dctx.strokeStyle = wallc;
 		for(let r = 0; r<(dw) ;r++){
    			this.dctx.beginPath();
-	        this.dctx.moveTo(r,dh/2-dw*15/rays[r].dist);
-	        this.dctx.lineTo(r,dh/2+dw*15/rays[r].dist);
+	        this.dctx.moveTo(r,dh/2-dw*cellsize/(5*rays[r].dist));
+	        this.dctx.lineTo(r,dh/2+dw*cellsize/(5*rays[r].dist));
 	        this.dctx.closePath();
 	        this.dctx.stroke();
 		};

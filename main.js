@@ -15,7 +15,7 @@ function init() {
     display = document.getElementById("display");
     tctx = topview.getContext("2d");
     dctx = display.getContext("2d");
-    scene1   = new scene(topview, tctx, level, cellsize, [25,25]);
+    scene1   = new scene(topview, tctx, level, cellsize, [cellsize/2,cellsize/2]);
     topview.width  = cellsize*scene1.mapw + cellsize;
     topview.height = cellsize*scene1.maph + cellsize;
     display.width  = dw;
@@ -37,3 +37,13 @@ function main() {
     player.draw();
     display1.draw();
 };
+
+function download1(){
+    document.getElementById("downloader1").download = "image1.png";
+    document.getElementById("downloader1").href = document.getElementById("topview").toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+}
+
+function download2(){
+    document.getElementById("downloader2").download = "image2.png";
+    document.getElementById("downloader2").href = document.getElementById("display").toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+}

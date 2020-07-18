@@ -15,8 +15,12 @@ class scene {
                     this.color = wallc;
                 else if(this.map[y][x]==0)
                     this.color = backg;
+                else if(this.map[y][x]==2)
+                    this.color = tric;
                 this.tctx.fillStyle = this.color;
-                this.tctx.fillRect(x*this.size+1+this.coord[0],y*this.size+1+this.coord[1],this.size-2,this.size-2);
+                this.tctx.strokeStyle = tric;
+                this.tctx.fillRect(x*this.size+this.coord[0],y*this.size+this.coord[1],this.size,this.size);
+                this.tctx.strokeRect(x*this.size+this.coord[0],y*this.size+this.coord[1],this.size,this.size);
             }
         }
     }

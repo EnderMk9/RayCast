@@ -45,43 +45,22 @@ class player{
         this.scene.tctx.stroke();
     }
     drawrays(){
-        this.scene.tctx.strokeStyle = linc;
-        this.scene.tctx.fillStyle = colc;
+        this.rays = [];
         for(let r = 0; r<(dw) ;r++){
-            let angle = this.rot-this.fov/2+(r/dw);
-            //if (r % (dw/20) == 0){
-                //let angle = this.rot
-                let cos1  = (Math.cos(angle)/Math.abs(Math.cos(angle)))
-                let sin1  = (Math.sin(angle)/Math.abs(Math.sin(angle)))
-                let tan1  = (Math.tan(angle)/Math.abs(Math.tan(angle)))
-                let acos1 = (Math.acos(-cos1)/Math.PI-cos1*this.cellxpos)
-                let acos2 = (Math.acos(sin1)/Math.PI+sin1*this.cellypos)
-                let tan2  = tan1*angle+Math.acos(cos1)
-                let ox    = this.x; let oy = this.y;
-                let ysec  = this.scene.size*acos1*Math.tan(tan2);
-                let xsec  = this.scene.size*acos2/Math.tan(tan2);
-                let size  = 4
-                let xsecx = +cos1*xsec-size/2
-                let xsecy = -sin1*acos2*this.scene.size-size/2
-                let xdis  = Math.sqrt(xsecx*xsecx+xsecy*xsecy);
-                let ysecx = +cos1*acos1*this.scene.size-size/2
-                let ysecy = -sin1*ysec-size/2
-                let ydis  = Math.sqrt(ysecx*ysecx+ysecy*ysecy);
-                this.scene.tctx.stroke();
-                this.scene.tctx.beginPath();
-                this.scene.tctx.moveTo(ox, oy);
-                if (xdis > ydis){
-                    this.scene.tctx.lineTo(ox+xsecx,oy+xsecy);
-                    this.scene.tctx.fillRect(ox+xsecx,oy+xsecy, size, size);
-                    this.scene.tctx.fillRect(ox+ysecx,oy+ysecy, size, size);
-                }else{
-                    this.scene.tctx.lineTo(ox+ysecx,oy+ysecy);
-                    this.scene.tctx.fillRect(ox+ysecx,oy+ysecy, size, size);
-                    this.scene.tctx.fillRect(ox+xsecx,oy+xsecy, size, size);}
-                this.scene.tctx.closePath();
-                this.scene.tctx.stroke();
-
-            };//};
+            this.scene.tctx.strokeStyle = linc;
+            this.scene.tctx.fillStyle = colc;
+            let angle = (this.rot+this.fov/2-(this.fov/dw)*r) % (2*Math.PI);
+            if (angle < 0){angle = 2*Math.PI + angle;}
+            //let angle = this.rot
+            this.rays[r] = new ray(this,angle,this.scene);
+            this.rays[r].secdis(this.cellxpos,this.cellypos,this.cellxint,this.cellyint);
+            this.scene.tctx.strokeStyle = tric;
+            this.scene.tctx.beginPath();
+            this.scene.tctx.moveTo(this.x, this.y);
+            this.scene.tctx.lineTo(this.x+Math.cos(angle)*this.scene.size/2,this.y-Math.sin(angle)*this.scene.size/2);
+            this.scene.tctx.closePath();
+            this.scene.tctx.stroke();
+        }
     }
     draw(){
         this.scene.tctx.fillStyle = playc;

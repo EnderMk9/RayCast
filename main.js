@@ -15,12 +15,13 @@ function init() {
     display = document.getElementById("display");
     tctx = topview.getContext("2d");
     dctx = display.getContext("2d");
-    scene1 = new scene(topview, tctx, level, cellsize, [25,25]);
+    scene1   = new scene(topview, tctx, level, cellsize, [25,25]);
     topview.width  = cellsize*scene1.mapw + cellsize;
     topview.height = cellsize*scene1.maph + cellsize;
     display.width  = dw;
     display.height = dh;
-    player = new player(scene1, Math.PI/2,5,Math.PI/50,[2,2],5);
+    player   = new player(scene1, Math.PI/2,5,Math.PI/100,[2,2],5);
+    display1 = new screen(display, dctx, player);
     player.update();
     setInterval(function(){main();},1000/FPS);
 };
@@ -34,4 +35,5 @@ function main() {
     clear(topview); clear(display);
     scene1.draw();
     player.draw();
+    display1.draw();
 };
